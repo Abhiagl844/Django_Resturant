@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from rbc import views
 from .forms import cartForm
 from django.forms import modelformset_factory
+from django.contrib.auth.decorators import login_required
 
 from django.db.models import Q
 
@@ -24,22 +25,17 @@ def cartPage(req):
 
     return render(req, 'cart.html' , context)
 
+@login_required(login_url='login')
 def cartAdd(req):
     cart = cartSes.objects.get(user = req.user)
 
     addCart = req.GET.get('q')
-    item = food.objects.get(id = addCart)
-    cartItem = cartItems(
-        cart = cart,
-        item = item
-    )
-    if(cartItems.objects.filter(Q(
-        item = item ,
-        cart = cart))):
-        pass
-    else:
-        cartItem.save()
-    
+
+    item = get_object_or_404(food, id=addCart)
+
+    if not cartItems.objects.filter(cart=cart, item=item).exists():
+        cartItems.objects.create(cart=cart, item=item)
+
     return redirect('home')
 
 def cartUpdate(req):
