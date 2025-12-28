@@ -65,17 +65,28 @@ def registerPage(req):
             user.username = user.username.lower()
             user.save()
 
-            login(req, user)
+            # ✅ CREATE user_details WITH REQUIRED FIELDS
+            user_details.objects.create(
+                user=user,
+                email=req.POST.get('email'),
+                phone=req.POST.get('phone'),
+                address=req.POST.get('address'),
+            )
 
             cartSes.objects.create(user=user)
-            user_details.objects.create(user=user)
 
+            login(req, user)
             messages.success(req, "Registration successful")
             return redirect('user_details_form')
+
         else:
             messages.error(req, "Registration failed. Please check the form.")
 
-    return render(req, 'login-register.html', {'form': form, 'page': page})
+    return render(req, 'login-register.html', {
+        'form': form,
+        'page': page
+    })
+
 
 
 def user_deltail_Form(req):
