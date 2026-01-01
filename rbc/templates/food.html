@@ -12,9 +12,14 @@
     <div style="margin-bottom:15px; padding:10px; background:#f8f9fa; border-radius:8px;">
         <strong>{{ r.user }}</strong><br>
         <span style="color:gold; font-size:18px;">
-            {% for i in "12345"|slice:":r.rating" %}
+            {% comment %} {% for i in "12345"|slice:":r.rating" %}
             ★
-            {% endfor %}
+            {% endfor %} {% endcomment %}
+            {% with ''|center:r.rating as stars %}
+                {% for _ in stars %}
+                    ★
+                {% endfor %}
+            {% endwith %}
         </span>
 
         <p style="margin-top:5px;">{{ r.body }}</p>

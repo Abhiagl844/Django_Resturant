@@ -226,7 +226,12 @@ def foodPage(req, pk):
             messages.success(req, "Review added successfully")
             return redirect('foodPage', pk=pk)
 
-    return render(req, 'food.html', {'items': items, 'rev': rev})
+    # return render(req, 'food.html', {'items': items, 'rev': rev})
+    return render(req, 'food.html', {
+    'items': items,
+    'rev': rev,
+    'range': range(5)
+})
 
 
 @login_required(login_url='login')
