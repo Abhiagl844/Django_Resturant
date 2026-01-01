@@ -210,6 +210,7 @@ def foodPage(req, pk):
         except (TypeError, ValueError):
             messages.error(req, "Please select a valid rating")
             return redirect('foodPage', pk=pk)
+        print("POST DATA:",req.POST)
 
         if not body:
             messages.error(req, "Review text is required")
