@@ -168,6 +168,32 @@ def menuDeletion(req , pk):
     return render(req , 'delete.html')
 
 
+# def foodPage(req, pk):
+#     items = get_object_or_404(food, id=pk)
+#     rev = Review.objects.filter(food=items)
+
+#     if req.method == "POST":
+#         if not req.user.is_authenticated:
+#             messages.warning(req, "Please login to add a review")
+#             return redirect('login')
+
+#         body = req.POST.get('body')
+#         rating = req.POST.get('rating')
+
+#         if not body or not rating:
+#             messages.error(req, "Review and rating are required")
+#         else:
+#             Review.objects.create(
+#                 user=req.user,
+#                 food=items,
+#                 body=body,
+#                 rating=rating
+#             )
+#             messages.success(req, "Review added successfully")
+#             return redirect('foodPage', pk=pk)
+
+#     return render(req, 'food.html', {'items': items, 'rev': rev})
+
 def foodPage(req, pk):
     items = get_object_or_404(food, id=pk)
     rev = Review.objects.filter(food=items)
@@ -178,10 +204,17 @@ def foodPage(req, pk):
             return redirect('login')
 
         body = req.POST.get('body')
-        rating = req.POST.get('rating')
 
-        if not body or not rating:
-            messages.error(req, "Review and rating are required")
+        try:
+            rating = int(req.POST.get('rating'))
+        except (TypeError, ValueError):
+            messages.error(req, "Please select a valid rating")
+            return redirect('foodPage', pk=pk)
+
+        if not body:
+            messages.error(req, "Review text is required")
+        elif rating < 1 or rating > 5:
+            messages.error(req, "Rating must be between 1 and 5")
         else:
             Review.objects.create(
                 user=req.user,
