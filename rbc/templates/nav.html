@@ -8,18 +8,18 @@
     display: flex;
     justify-content: center;
     margin: 30px 0;
-    overflow-x: hidden;   /* ✅ prevents side overlap */
+    overflow-x: hidden;
 }
 
-/* ===== FOOTER BAR ===== */
+/* ===== FOOTER BAR (⬅ SHORTER LEFT & RIGHT ONLY) ===== */
 .footer-bar {
-    max-width: 1200px;     /* ✅ prevents stretching */
-    width: calc(100% - 40px);
+    max-width: 900px;            /* ⬅ reduced width */
+    width: calc(100% - 160px);   /* ⬅ more space on both sides */
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(10px);
     border-radius: 18px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-    padding: 18px;
+    padding: 18px;               /* ❌ unchanged */
 }
 
 /* ===== FOOTER GRID ===== */
@@ -30,13 +30,13 @@
     gap: 16px;
 }
 
-/* ===== BUTTONS (SCOPED) ===== */
+/* ===== BUTTONS (UNCHANGED) ===== */
 .footer-btn {
     padding: 8px 18px;
     border-radius: 999px;
     border: none;
     cursor: pointer;
-    background: #1f2937;   /* dark, not blue */
+    background: #1f2937;
     color: #ffffff;
     font-weight: 600;
     white-space: nowrap;
