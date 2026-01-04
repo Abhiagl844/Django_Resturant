@@ -56,3 +56,12 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.contact
+
+
+class Address(models.Model):
+    address=models.CharField(max_length=200)
+    pin=models.CharField(max_length=10,default="000000")
+    direction=models.URLField()
+
+    def __str__(self):
+        return self.address

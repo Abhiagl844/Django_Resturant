@@ -104,8 +104,9 @@
                 </div>
             </div>
 
+            {% if address %}
             <!-- DIRECTIONS -->
-            <a href="https://www.google.com/maps/dir//country+club/@23.7463206,86.754879,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x39f6dddee67d8e37:0xfa6ce1c795354925!2m2!1d86.7898987!2d23.746246">
+            <a href="{{address.direction}}">
                 <button class="footer-btn">DIRECTIONS TO OUR RESTAURANT</button>
             </a>
 
@@ -114,14 +115,15 @@
                 <button class="footer-btn" onclick="pop()">ADDRESS</button>
                 <div id="myDropdown" class="footer-dropdown-content" style="display:none;">
                     <div class="footer-address">
-                        Opposite Shryam Kalyan Kendra,<br>
-                        Below Bajaj Allainz,<br>
-                        Sirsa Pahari, Chirkunda,<br>
-                        Dist. Dhanbad<br>
-                        <b>Pin: 828202</b>
+                        <b>Address: {{address.address}}</b>
+                        <b>Pin: {{address.pin}}</b>
                     </div>
                 </div>
             </div>
+            {% else %}
+            
+                <p style="color:red;">Address not configured</p>
+            {% endif %}
 
             <!-- GALLERY -->
             <button class="footer-btn">GALLERY</button>

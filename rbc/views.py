@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect,get_object_or_404
 from django.http import HttpResponse
 
 from .models import food , Review , user_details
-from itemCart.models import cartSes , order1 , orderedItems,Contact
+from itemCart.models import cartSes , order1 , orderedItems,Contact,Address
 from .forms import foodForm , user_detailsForm
 
 from . import machine
@@ -21,6 +21,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 def home(req):
     contact=Contact.objects.first()
+    address=Address.objects.first()
     choice = food.course_choice
     rate = Review.objects.all()
     q = req.GET.get('q') if req.GET.get('q') != None else ''
@@ -28,7 +29,7 @@ def home(req):
     
     l = machine.seggestions(req)
     
-    context = {"food" : item , "course" : choice , "rate" : rate , 'l' : l,"contact":contact}
+    context = {"food" : item , "course" : choice , "rate" : rate , 'l' : l,"contact":contact,"address":address}
     return render(req,'home.html',context)
 
 def loginPage(req):
